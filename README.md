@@ -13,9 +13,10 @@ Before we have fun training a model, let's get everything set up first so we can
 # Creating Datasets
 
 In any ML task, collecting sufficient data is probably one of the most important things you can do to get a high quality result. For TTS, this data should include audio files split at sentence breaks of a single speaker reading from a script, along with an accompanying text transcript. Piper makes your job easier by keeping the format very simple. For the audio, you can either use 16 or 22.5 kHz mono .wav files at 16 bit resolution, with durations between 8-15 seconds. For the text, you should format it according to the popular LJSpeech conventions, where the first column contains the name of your audio file with or without the extension, and the second column contains the text transcript, with each separated by a pipe character. The format looks like this:
-
+```
 audio1|This is the first sentence.
 audio2| This is the second sentence.
+```
 
 Note that unlike LJSpeech, you do not need to repeat the text transcript a second time, as that is reserved for multi speaker models when providing speaker IDs. Note also that it is totally fine to have the path to your audio files before the file name, but it is not necessary, as Piper will handle all of that for you behind the scenes.
 
