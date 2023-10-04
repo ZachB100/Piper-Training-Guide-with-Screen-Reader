@@ -11,7 +11,9 @@ With Piper being based on ML, a lot of people may understandably have concerns a
 # Getting Things Ready
 
 Before we have fun training a model, let's get everything set up first so we can test right away. [Click here](https://drive.google.com/file/d/1utUFfmA7V8VSkTO9FyxBLSnGie7rLaWc/view?usp=drive_link) to download the AddOn directly. If you would like to learn more or get updates, [click here.](https://github.com/mush42/piper-nvda?ref=building.open-home.io) after installation, a dialogue will pop up when you next restart NVDA, explaining that you do not currently have voices installed and offering to take you to the Piper sample page where you can preview and download any voices you would like. Installing a new voice is very easy, simply go to the NVDA menu / piper voice manager option. In the installed tab, you will then find a button to install voices from a local archive, and it's as simple as choosing the one you want and pressing enter.
+
 Also, you can download [new voices](https://huggingface.co/rhasspy/piper-voices/tree/v1.0.0) hosted in `🤗huggingface`. Simply go to the `downloadable` tab, choose your preferred language and the list of voices will appear. This list can contain as many voices as are trained in that language. You can listen to a sample and download it, as well as refresh the list of voices (requires internet connection). At the moment, the `preview voice` is not functional. I'll update the guide when this is fixed.
+
 Take some time to play around with the different voices that are available and get a feel for how the synth operates, then come back and we'll get to the fun stuff.
 
 # Creating Datasets
@@ -53,8 +55,10 @@ After getting everything installed, it's time to upload your data set. Enter the
 
 After everything has been successfully uploaded, it is time to pre-process your data set. Please be sure to look at every parameter carefully before clicking the run cell button. Among other things, you will be asked to choose a name for your model, the language, and the sample rate of your data. Note that for English, I would recommend choosing US English for now, as this will affect the availability of pre-trained models to fine-tune from, and currently LJ speech produces the best results in my testing. If you're training UK English, this will lead to some incorrect pronunciation, so feel free to experiment with British English if you wish.
 
-After the pre-processing step has completed, you must configure various training settings for your model. You can leave most of these at the defaults. In the action combobox, we have a few possibilities, such as `Continue training` `fine-tuning`, `training multiple speakers` using a single speaker model, and `training from scratch`. In this case, we will use fine-tuning.
+After the pre-processing step has completed, you must configure various training settings for your model. You can leave most of these at the defaults. In the action combobox, we have a few possibilities, such as `Continue training`, `fine-tuning`, `training multiple speakers` using a single speaker model, and `training from scratch`. In this case, we will use fine-tuning.
+
 Another parameter to look at is the quality setting. In all of my tests so far, I have said this to medium, but you can experiment with other quality levels if you wish.
+
 And finally, something to keep in mind is the batch size. This depends on the dataset and GPU resources you have. Colab by default offers a 16 GB tesla t4, but you can purchase colab pro to train larger datasets for a longer run time. Below is a table with different dataset sizes and suggested values:
 
 | Dataset size | suggested batch size |
@@ -71,12 +75,15 @@ And finally, something to keep in mind is the batch size. This depends on the da
 Please note that these are only suggested values, but depend on resources such as GPU VRAM and available compute.
 
 After clicking the run button on this cell, if you selected the `fine-tune` or `resume from a single-speaker model` action, in the output you will see a drop-down menu to select the model you wish to fine-tune. Be sure to select a model with the same quality level that you chose before in order for everything to work correctly.
+
 Note: to continue a training, it can only be done once and, in addition, the same settings and parameters must be set as those that were applied the first time it was trained.
 
 ### Training
 
 All right, finally it's time to train! If you did everything right, clicking on the run button for the training cell will begin the process. Depending on the number of Epochs you have set, training may not stop by itself, but once you have progress saved in Drive you can interrupt it at any time by clicking the run button again.
+
 Note: if when you start training you get a `Cuda out of memory` error and you use our suggested batch size values, you can reduce this value a little by geting back to the settings cell. Modify the respective control and runn this cell to update these settings, then try training again.
+
 To listen to how the model sounds while training, you can do so by accessing some audios that will appear in your `Google Drive` and will be constantly updated. The amount of time to train will depend on how much data you have, but I've gotten good results after about three hours or so. Feel free to experiment with this.
 
 ## Exporting and Testing
